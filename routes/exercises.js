@@ -1,12 +1,14 @@
 const express = require('express');
-const ExercisesController = require('../controllers/exercises');
+const ExerciseController = require('../controllers/exercises');
 
 const router = express.Router();
 
-router.get('', ExercisesController.getExercises);
+router.post('', ExerciseController.postExercise);
+router.get('', ExerciseController.getExercises);
+router.get('/:id', ExerciseController.getExercise);
+router.put('/:id', ExerciseController.putExercise);
 // router.put('/:id', checkAuth, extractFile, ExercisesController.updatePost);
 // router.get('', PostController.getPostsList);
-// router.get('/:id', PostController.getPost);
 // router.delete('/:id', checkAuth, PostController.deletePost);
 
 module.exports = router;

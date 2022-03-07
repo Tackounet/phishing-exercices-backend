@@ -1,9 +1,13 @@
 const express = require('express');
-const ExercisesController = require('../controllers/exercise');
+const TraineeController = require('../controllers/trainee');
 
 const router = express.Router();
 
-router.get('', ExercisesController.getExercises);
+router.post('/result', TraineeController.postResult);
+router.post('/score', TraineeController.postScore);
+router.post('/register', TraineeController.registerTrainee);
+router.post('/result', TraineeController.saveResult);
+router.post('/stats', TraineeController.saveStats);
 // router.put('/:id', checkAuth, extractFile, ExercisesController.updatePost);
 // router.get('', PostController.getPostsList);
 // router.get('/:id', PostController.getPost);
