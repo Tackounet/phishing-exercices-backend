@@ -6,6 +6,7 @@ const resultSchema = mongoose.Schema({
   traineeId: { type: String, trim: true, required: true },
   traineeName: { type: String, trim: true, required: true },
   sessionId: { type: String, trim: true, required: true },
+  answers: { type: [] },
   score: { type: Number, required: true },
   isCorrect:  { type: Boolean, default: null },
   isPhishing: { type: Boolean, default: null }

@@ -2,28 +2,11 @@ const Trainee = require('../models/trainee');
 const Result = require('../models/result');
 const Score = require('../models/score');
 
-exports.postResult = (req, res, next) => {
-  const result = req.body;
-  console.log(result);
-  res.status(201).json({
-    message: 'Send result successfully'
-  });
-};
-
-exports.postScore = (req, res, next) => {
-  const score = req.body;
-  console.log(score);
-  res.status(201).json({
-    message: 'Send score successfully'
-  });
-};
-
 exports.registerTrainee = (req, res, next) => {
   const trainee = new Trainee({
     id: req.body.id,
     name: req.body.name
   });
-  console.log(trainee);
   trainee.save().then(createdTrainee => {
     res.status(201).json({
       message: 'Trainee added successfully!',
@@ -47,11 +30,11 @@ exports.saveResult = (req, res, next) => {
     traineeId: req.body.traineeId,
     traineeName: req.body.traineeName,
     sessionId: req.body.sessionId,
+    answsers: req.body.answers,
     score: req.body.score,
     isCorrect: req.body.isCorrect,
     isPhishing: req.body.isPhishing
   });
-  console.log(result);
   result.save().then(saveResult => {
     res.status(201).json({
       message: 'Result added successfully!',
@@ -68,6 +51,25 @@ exports.saveResult = (req, res, next) => {
   });
 };
 
+exports.getResults = (req, res, next) => {
+  Result.find({ sessionId: req.params.id }).then(results => {
+    if (results) {
+      res.status(200).json({
+        message: 'Results fetched successfully!',
+        results: results
+      });
+    } else {
+      res.status(404).json({
+        message: 'Results not found'
+      })
+    }
+  }).catch(error => {
+    res.status(500).json({
+      message: 'Fetching results failed'
+    });
+  });
+};
+
 exports.saveStats = (req, res, next) => {
   const stats = new Score({
     sessionId: req.body.sessionId,
@@ -75,7 +77,6 @@ exports.saveStats = (req, res, next) => {
     traineeName: req.body.traineeName,
     score: req.body.score
   });
-  console.log(stats);
   stats.save().then(savedStats => {
     res.status(201).json({
       message: 'Stats added successfully!',

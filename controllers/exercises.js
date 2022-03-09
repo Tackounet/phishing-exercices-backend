@@ -17,7 +17,6 @@ exports.postExercise = (req, res, next) => {
     rightAnswer: req.body.rightAnswer,
     wrongAnswer: req.body.wrongAnswer
   });
-  console.log(exercise);
   exercise.save().then(createdExercise => {
     res.status(201).json({
       message: 'Exercise added successfully!',
@@ -86,7 +85,6 @@ exports.putExercise = (req, res, next) => {
     wrongAnswer: req.body.wrongAnswer
   });
   Exercise.updateOne({ _id: req.params.id }, exercise).then(result => {
-    console.log(result);
     res.status(200).json({
       message: 'Exercise updated successfully!',
       exercise: exercise

@@ -1,12 +1,10 @@
 const Session = require('../models/session');
 
 exports.createSession = (req, res, next) => {
-  console.log(req.body);
   const session = new Session({
     id: req.body.id,
     createdAt: new Date()
   });
-  console.log(session);
   session.save().then(createdSession => {
     res.status(201).json({
       message: 'Session added successfully!',
